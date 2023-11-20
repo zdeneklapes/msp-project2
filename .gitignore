@@ -1,0 +1,5 @@
+.idea/
+tmp/
+venv/
+.DS_Store
+tags
