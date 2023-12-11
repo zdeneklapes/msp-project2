@@ -1,0 +1,22 @@
+version: '3.6'
+
+name: msp-ubuntu
+
+services:
+  ubuntu:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    # Here must be defined both image and build, because we use different .env files with which are the images build
+    image: zdeneklapes/${COMPOSE_PROJECT_NAME}:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #    entrypoint:
+    #      - "/usr/bin/fish"
+    ports:
+      - "8888:8888"
+    privileged: true
+    volumes:
+      - ./:/app/ # Mount the project directory to the container
+      - ./tmp/fish/:/root/.local/share/fish/ # Mount the fish shell history, to remain files when docker container is rebuild: This will create ./tmp/fish/ folder in the project directory if it doesn't exist already
+    stdin_open: true
+    tty: true
